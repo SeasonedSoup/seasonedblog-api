@@ -13,11 +13,17 @@ datasource db {
   provider = "postgresql"
 }
 
+enum Role {
+  USER 
+  AUTHOR
+}
+
 model User {
   id    Int     @id @default(autoincrement())
   password String 
   email String  @unique
   name  String?
+  role Role @default(USER)
   posts Post[]
 }
 
@@ -28,4 +34,13 @@ model Post {
   published Boolean @default(false)
   author    User    @relation(fields: [authorId], references: [id])
   authorId  Int
+  comments Comment[]
+}
+
+model Comment {
+  id Int @id @default(autoincrement())
+  text String
+  timestamp DateTime @default(now())
+  post Post @relation(fields: [postId], references: [id])
+  postId Int
 }

@@ -1,6 +1,6 @@
 const { prisma } = require("../lib/prisma")
 
-async function postBlogPost(req, res) {
+async function createPost(req, res) {
     await prisma.post.create({
         data: {
             id: req.body.id,
@@ -12,5 +12,5 @@ async function postBlogPost(req, res) {
 }
 
 module.exports = {
-    postBlogPost
+    createPost
 };

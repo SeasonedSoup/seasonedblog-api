@@ -11,6 +11,14 @@ async function createPost(req, res) {
     })
 }
 
+async function fetchPosts(req, res) {
+    const posts = await prisma.post.findMany()
+
+    return posts
+}
+
 module.exports = {
-    createPost
+    createPost,
+    fetchPosts,
+    
 };

@@ -25,6 +25,7 @@ model User {
   name  String @unique
   role Role @default(USER)
   posts Post[]
+  comments Comment[]
 }
 
 model Post {
@@ -41,6 +42,9 @@ model Comment {
   id Int @id @default(autoincrement())
   text String
   timestamp DateTime @default(now())
+
+  commenter User @relation(fields: [commenterId], references: [id])
+  commenterId  Int
   post Post @relation(fields: [postId], references: [id])
   postId Int
 }

@@ -40,6 +40,10 @@ async function updatePost(req, res) {
     console.log(newPost);
 }
 
+async function togglePostStatus(req, res) {
+
+}
+
 module.exports = {
     createPost,
     fetchPosts,

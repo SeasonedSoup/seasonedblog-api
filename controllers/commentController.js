@@ -18,8 +18,20 @@ async function deleteComment(req, res) {
         }
     })
 }
+//tbc we will get usernames as well along with comments for seeing on posts
+async function getComments(req, res) {
+    const comments = await prisma.comment.findMany({
+        where: { //prototype
+            postId: req.params.postId,
+            commenterId: req.params.commenterId
+        }
+    })
+
+    return comments
+}
 
 module.exports = {
     createComment,
-    deleteComment
+    deleteComment,
+    getComments
 }

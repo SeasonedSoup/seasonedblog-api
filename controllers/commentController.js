@@ -11,6 +11,15 @@ async function createComment(req, res) {
     })
 }
 
+async function deleteComment(req, res) {
+    await prisma.comment.delete({
+        where: {
+            id: req.params.id 
+        }
+    })
+}
+
 module.exports = {
-    createComment
+    createComment,
+    deleteComment
 }

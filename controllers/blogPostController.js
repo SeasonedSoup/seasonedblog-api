@@ -41,13 +41,24 @@ async function updatePost(req, res) {
 }
 
 async function togglePostStatus(req, res) {
+    const newStatus = !req.body.published
+    const newPost = await prisma.post.update({
+        where: {
+            id: req.params.id
+        },
+        data : {
+            published: newStatus
+        }
+    });
 
+    console.log(newPost);
 }
 
 module.exports = {
     createPost,
     fetchPosts,
     deletePost,
-    updatePost
+    updatePost,
+    togglePostStatus
     
 };

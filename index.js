@@ -7,6 +7,7 @@ const LocalStrategy = require("passport-local").Strategy;
 
 require("dotenv").config();
 
+const PORT = process.env.PORT
 const app = express();
 
 passport.use(
@@ -38,4 +39,14 @@ passport.use(
 
 //parses incoming http to readable javascript object for req.body middleware
 app.use(express.urlencoded({extended: true}));
+
+app.use(passport.initialize);
+
+app.listen(PORT, (err) => {
+    if (err) {
+        throw err;
+    }
+
+    console.log(`The server is now listening at port ${PORT}`)
+})
 

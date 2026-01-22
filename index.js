@@ -10,6 +10,9 @@ require("dotenv").config();
 const PORT = process.env.PORT
 const app = express();
 
+const cors = require('cors');
+app.use(cors()); 
+
 passport.use(
     new LocalStrategy(async (name, password, done) => {
         try {
@@ -40,7 +43,11 @@ passport.use(
 //parses incoming http to readable javascript object for req.body middleware
 app.use(express.urlencoded({extended: true}));
 
-app.use(passport.initialize);
+app.use(passport.initialize());
+
+app.use("/", (req, res) => {
+    res.send("HI IM AN API");
+})
 
 app.listen(PORT, (err) => {
     if (err) {

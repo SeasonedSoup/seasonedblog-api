@@ -16,19 +16,6 @@ async function createUser(req, res) {
     res.json({message: "Signed up successfully!"}); 
 };
 
-async function loginUser(req, res) {
-    jwt.sign({userId: req.user.id},
-        process.env.JWTSECRET,
-        {expiresIn: '7d'}, (err, token) => {
-            if (err) {
-                return res.send("Error in processing the token has occured")
-            }
-            res.json({token})
-        }
-    )
-}
-
-
 
 
 module.exports = {

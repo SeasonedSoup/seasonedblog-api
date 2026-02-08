@@ -1,10 +1,12 @@
 const { Router } = require("express");
 const userController  = require("../controllers/userController");
+const tokenController = require("../controllers/tokenController")
 const passport = require("passport");
 
 const userRouter = Router();
 
-userRouter.post('/login', passport.authenticate('local', {session: false}), userController.loginUser)
+userRouter.get('/', tokenController.verifyUserToken )
+userRouter.post('/login', passport.authenticate('local', {session: false}), tokenController.giveUserToken)
 userRouter.post('/signup', userController.createUser);
 
 module.exports = userRouter;

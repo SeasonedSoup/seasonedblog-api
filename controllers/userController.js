@@ -1,7 +1,5 @@
 const { prisma } = require("../lib/prisma.js");
 const bcryptjs = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-require("dotenv").config();
 
 async function createUser(req, res) {
     const hashedPass = await bcryptjs.hash(req.body.password ,11) 
@@ -16,9 +14,17 @@ async function createUser(req, res) {
     res.json({message: "Signed up successfully!"}); 
 };
 
+async function getUser(req, res) {
+    const user = await prisma.user.findUnique({
+        where: {
+            id: req.user.id 
+        }
+    })
 
-
+    res.json(user)
+}
+    
 module.exports = {
     createUser,
-    loginUser
+    getUser
 }

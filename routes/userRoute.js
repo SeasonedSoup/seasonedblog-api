@@ -5,7 +5,7 @@ const passport = require("passport");
 
 const userRouter = Router();
 
-userRouter.get('/', tokenController.verifyUserToken )
+userRouter.get('/', tokenController.verifyUserToken, userController.getUser )
 userRouter.post('/login', passport.authenticate('local', {session: false}), tokenController.giveUserToken)
 userRouter.post('/signup', userController.createUser);
 

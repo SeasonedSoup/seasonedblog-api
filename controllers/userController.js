@@ -17,7 +17,7 @@ async function createUser(req, res) {
 async function getUser(req, res) {
     const user = await prisma.user.findUnique({
         where: {
-            id: req.user.id 
+            id: req.user.userId 
         }
     })
 

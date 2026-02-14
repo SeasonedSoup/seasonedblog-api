@@ -4,7 +4,7 @@ const cors = require('cors');
 //Passports for logging in
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
-
+const bcryptjs = require("bcryptjs")
 //routers
 const userRouter = require("./routes/userRoute");
 
@@ -16,19 +16,19 @@ const app = express();
 
 
 passport.use(
-    new LocalStrategy(async (name, password, done) => {
+    new LocalStrategy({usernameField: 'email'}, async (email, password, done) => {
         try {
             const user = await prisma.user.findUnique({
                 where: {
-                    name: name
+                    email: email
                 }
             })
 
             if (!user) {
-                return done(null, false, {message: "Incorrect username"});
+                return done(null, false, {message: "Incorrect email"});
             }
 
-            const match = await bcrypt.compare(password, user.password) 
+            const match = await bcryptjs.compare(password, user.password) 
             if (!match) {
                 return done(null, false, {message: 'Incorrect password'});
             };

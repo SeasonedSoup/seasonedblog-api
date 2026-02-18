@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const userController  = require("../controllers/userController");
-const tokenController = require("../controllers/tokenController")
+const tokenController = require("../controllers/tokenController");
 const passport = require("passport");
 
 const userRouter = Router();

@@ -1,10 +1,11 @@
 const { Router } = require("express")
 const blogPostController = require("../controllers/blogPostController");
+const tokenController = require("../controllers/tokenController");
 
 
 const blogPostRouter = Router();
 
-blogPostRouter.get("/posts", blogPostController.fetchPosts);
-blogPostRouter.post("/posts", blogPostController.createPost);
+blogPostRouter.get("/post", blogPostController.fetchPosts);
+blogPostRouter.post("/post", tokenController.verifyUserToken, blogPostController.createPost);
 
 module.exports = blogPostRouter;

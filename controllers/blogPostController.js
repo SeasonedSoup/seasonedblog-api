@@ -1,19 +1,25 @@
 const { prisma } = require("../lib/prisma")
 
 async function createPost(req, res) {
+    console.log("CREATING");
     //First verify if role is author
     if (req.user.role != "AUTHOR" ) {
         return res.status(403).json({ message: "Forbidden: Creating Post is of role Authors only" });
     }
 
-    await prisma.post.create({
-        data: {
-            title: req.body.title,
-            content: req.body.content,
-            authordId: req.user.userId
-        }
-    })
-    return res.json({message: "Post successfully created"})
+    try {
+        await prisma.post.create({
+            data: {
+                title: req.body.title,
+                content: req.body.content,
+                authorId: parseInt(req.user.userId)
+            }
+        })
+        return res.json({message: "Post successfully created"})
+    } catch (err) {
+        console.error("PRISMA ERROR:", err.message);
+        return res.status(500)
+    }
 }
 
 async function deletePost(req, res) {

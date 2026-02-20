@@ -7,6 +7,7 @@ const LocalStrategy = require("passport-local").Strategy;
 const bcryptjs = require("bcryptjs")
 //routers
 const userRouter = require("./routes/userRoute");
+const blogPostRouter = require("./routes/blogPostRoute");
 
 require("dotenv").config();
 
@@ -50,7 +51,7 @@ app.use(express.urlencoded({extended: true}));
 app.use(passport.initialize());
 
 app.use("/api", userRouter)
-
+app.use("/api", blogPostRouter)
 app.get("/", (req, res) => {
     res.send("HI IM AN API");
 })

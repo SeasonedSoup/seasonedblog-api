@@ -14,6 +14,7 @@ async function giveUserToken(req, res) {
 }
 
 async function verifyUserToken (req, res, next) {
+    console.log("VERIFYING")
     const bearerHeader = req.headers['authorization'];
 
     if (bearerHeader == null) return res.status(403);
@@ -23,11 +24,12 @@ async function verifyUserToken (req, res, next) {
 
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET)
+        console.log("DECODED SUCCESS:", decoded); 
 
         req.user = decoded
         next();
     } catch (err) {
-        res.status("403").json({message: "Invalid or Expired Token"});
+        res.status(403).json({message: "Invalid or Expired Token"});
     }
 }
 

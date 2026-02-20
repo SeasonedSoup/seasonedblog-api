@@ -33,7 +33,17 @@ async function deletePost(req, res) {
 async function fetchPosts(req, res) {
     const posts = await prisma.post.findMany()
 
-    return posts
+    return res.json(posts)
+}
+
+async function findPost(req, res) {
+    const post = await prisma.post.findUnique({
+        where: {
+            id: req.params.id
+        }
+    })
+
+    return res.json(post);
 }
 
 

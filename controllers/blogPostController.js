@@ -18,7 +18,7 @@ async function createPost(req, res) {
         return res.json({message: "Post successfully created"})
     } catch (err) {
         console.error("PRISMA ERROR:", err.message);
-        return res.status(500)
+        return res.status(500).send()
     }
 }
 
@@ -50,7 +50,7 @@ async function findPost(req, res) {
 async function updatePost(req, res) {
     const newPost = await prisma.post.update({
         where: {
-            id: req.params.id
+            id: parseInt(req.params.id)
         },
         data: {
             title: req.body.title,
@@ -58,7 +58,7 @@ async function updatePost(req, res) {
         }
     });
 
-    console.log(newPost);
+    return res.json(newPost)
 }
 
 async function togglePostStatus(req, res) {
@@ -78,8 +78,8 @@ async function togglePostStatus(req, res) {
 module.exports = {
     createPost,
     fetchPosts,
+    findPost,
     deletePost,
     updatePost,
     togglePostStatus
-    
 };

@@ -62,7 +62,7 @@ async function updatePost(req, res) {
 }
 
 async function togglePostStatus(req, res) {
-    const newStatus = !req.body.published
+    const newStatus = JSON.parse(req.body.published)
     const newPost = await prisma.post.update({
         where: {
             id: parseInt(req.body.id)

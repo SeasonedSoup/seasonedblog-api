@@ -25,6 +25,8 @@ passport.use(
                 }
             })
 
+            console.log("User found:", !!user);
+
             if (!user) {
                 return done(null, false, {message: "Incorrect email"});
             }
@@ -33,6 +35,8 @@ passport.use(
             if (!match) {
                 return done(null, false, {message: 'Incorrect password'});
             };
+
+            console.log("Do passwords match?", match);
 
             return done(null, user);
 

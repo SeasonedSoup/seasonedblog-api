@@ -9,5 +9,6 @@ blogPostRouter.get("/posts", blogPostController.fetchPosts);
 blogPostRouter.post("/post", tokenController.verifyUserToken, blogPostController.createPost);
 blogPostRouter.patch("/togglepubstatus", blogPostController.togglePostStatus);
 blogPostRouter.put("/:id/edit", blogPostController.updatePost);
+blogPostRouter.delete("/delete", blogPostController.deletePost)
 
 module.exports = blogPostRouter;

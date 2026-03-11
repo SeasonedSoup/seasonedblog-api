@@ -25,9 +25,11 @@ async function createPost(req, res) {
 async function deletePost(req, res) {
     await prisma.post.delete({
         where: {
-            id: req.params.id
+            id: parseInt(req.body.id)
         }
     })
+
+    return res.json("Deleted successfully")
 }
 
 async function fetchPosts(req, res) {

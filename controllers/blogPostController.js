@@ -38,6 +38,16 @@ async function fetchPosts(req, res) {
     return res.json(posts)
 }
 
+async function fetchPublishedPosts(req, res) {
+    const posts = await prisma.post.findMany({
+        where: {
+            published: true
+        },
+    })
+
+    return res.json(posts)
+}
+
 async function findPost(req, res) {
     const post = await prisma.post.findUnique({
         where: {
@@ -80,6 +90,7 @@ async function togglePostStatus(req, res) {
 module.exports = {
     createPost,
     fetchPosts,
+    fetchPublishedPosts,
     findPost,
     deletePost,
     updatePost,

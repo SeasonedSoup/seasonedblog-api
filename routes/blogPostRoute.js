@@ -6,6 +6,7 @@ const tokenController = require("../controllers/tokenController");
 const blogPostRouter = Router();
 
 blogPostRouter.get("/posts", blogPostController.fetchPosts);
+blogPostRouter.get("/publishedPosts", blogPostController.fetchPublishedPosts);
 blogPostRouter.post("/post", tokenController.verifyUserToken, blogPostController.createPost);
 blogPostRouter.patch("/togglepubstatus", blogPostController.togglePostStatus);
 blogPostRouter.put("/:id/edit", blogPostController.updatePost);

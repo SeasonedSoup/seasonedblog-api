@@ -1,12 +1,17 @@
 const {prisma} = require("../lib/prisma.js");
 
 async function createComment(req, res) {
+    
+    if (req.user.role != "AUTHOR" || req.user.role != "USER") {
+        return res.status(403).json({ message: "Forbidden: You must be logged in to comment" });
+    }
+
     await prisma.comment.create({
         data: {
             id: req.body.id,
             text: req.body.text,
-            postId: req.params.postId
-
+            postId: req.params.postId,
+            commenterId: req.user.id
         }
     })
 }
@@ -23,11 +28,10 @@ async function getComments(req, res) {
     const comments = await prisma.comment.findMany({
         where: { //prototype
             postId: req.params.postId,
-            commenterId: req.params.commenterId
         }
     })
 
-    return comments
+    res.json(comments)
 }
 
 module.exports = {

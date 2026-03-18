@@ -8,6 +8,7 @@ const bcryptjs = require("bcryptjs")
 //routers
 const userRouter = require("./routes/userRoute");
 const blogPostRouter = require("./routes/blogPostRoute");
+const commentRouter = require("./routes/commentRoute");
 
 require("dotenv").config();
 
@@ -56,6 +57,8 @@ app.use(passport.initialize());
 
 app.use("/api", userRouter)
 app.use("/api", blogPostRouter)
+app.use("/api", commentRouter)
+
 app.get("/", (req, res) => {
     res.send("HI IM AN API");
 })
